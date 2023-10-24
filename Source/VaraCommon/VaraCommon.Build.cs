@@ -10,6 +10,7 @@ public class VaraCommon : ModuleRules
 			new string[]
 			{
 				"Core",
+				"CoreUObject"
 			}
 		);
 	}
