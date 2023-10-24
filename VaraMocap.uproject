@@ -1,0 +1,22 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{7D338772-4FFD-AFBB-E0B8-23BD1F3D8D09}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "VaraMocap",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		}
+	]
+}
