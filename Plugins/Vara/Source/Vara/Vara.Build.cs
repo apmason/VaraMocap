@@ -26,6 +26,7 @@ public class Vara : ModuleRules
 			new string[]
 			{
 				"Core",
+				"VaraCommon"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
