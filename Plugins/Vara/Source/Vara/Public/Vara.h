@@ -25,6 +25,10 @@ private:
 
 	TSharedRef<class SDockTab> OnSpawnPluginTab(const class FSpawnTabArgs& SpawnTabArgs);
 
+	void CreateAnimation();
+
+	FString GetRandomName() const;
+
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
 };
