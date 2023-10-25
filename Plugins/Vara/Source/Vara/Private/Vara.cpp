@@ -83,7 +83,7 @@ TSharedRef<SDockTab> FVaraModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTab
 
 void FVaraModule::CreateAnimation()
 {
-	FStringAssetReference SkeletonReference(TEXT("/Vara/Proteus/proteus_head_LOD2_and_body_rig_Skeleton"));
+	FStringAssetReference SkeletonReference(TEXT("/Vara/Proteus/proteus_head_LOD2_and_body_rig_Skeleton1"));
 	USkeleton* Skeleton = Cast<USkeleton>(SkeletonReference.TryLoad());
 	check(IsValid(Skeleton));
 	
@@ -99,17 +99,18 @@ void FVaraModule::CreateAnimation()
 		NewAnimation->SetSkeleton(Skeleton);
 
 		IAnimationDataController& Controller = NewAnimation->GetController();
-
+		Controller.InitializeModel(); // This is how to get around the break in 5.2!
+    	
 		const float PlayLength = 3.5; // Capture.Frames.Last().Timestamp - Capture.Frames[0].Timestamp;
     	const int32 NumFrames = 315; // Capture.Frames.Num();
     	
-		Controller.SetPlayLength(PlayLength, true);
+    	Controller.OpenBracket(FText::FromString(FString(TEXT("Anim Populating"))), true);
+    	
 		Controller.SetFrameRate(FFrameRate(NumFrames, PlayLength));
+    	Controller.SetNumberOfFrames(FFrameNumber(NumFrames));
     	Controller.NotifyPopulated();
     	
     	Controller.RemoveAllBoneTracks();
-    	
-    	Controller.OpenBracket(FText::FromString(FString(TEXT("Anim Populating"))), true);
 
 		FReferenceSkeleton RefSkeleton = Skeleton->GetReferenceSkeleton();
     	const TArray<FTransform>& RefPoses = RefSkeleton.GetRefBonePose();
@@ -117,12 +118,8 @@ void FVaraModule::CreateAnimation()
 		for (int32 BoneIndex = 0; BoneIndex < NumBones; BoneIndex++)
 		{
 			const FName BoneName = RefSkeleton.GetBoneName(BoneIndex);
-			const int32 TrackIndex = Controller.AddBoneTrack(BoneName);
-			
-			if (TrackIndex == INDEX_NONE)
-			{
-				check(false);
-			}
+			const bool bAddSuccess = Controller.AddBoneCurve(BoneName);
+			check(bAddSuccess);
 
 			TArray<FVector> PosKeys;
 			TArray<FQuat> RotKeys;
@@ -132,7 +129,8 @@ void FVaraModule::CreateAnimation()
 			RotKeys.Init(RefPoses[BoneIndex].GetRotation(), Controller.GetModel()->GetNumberOfFrames() + 1);
 			ScaleKeys.Init(RefPoses[BoneIndex].GetScale3D(), Controller.GetModel()->GetNumberOfFrames() + 1);
 
-			const bool bSuccess = Controller.SetBoneTrackKeys(BoneName, PosKeys, RotKeys, ScaleKeys);
+			const bool bTrackSuccess = Controller.SetBoneTrackKeys(BoneName, PosKeys, RotKeys, ScaleKeys);
+			check(bTrackSuccess);
 			
 			for (int32 FrameIndex = 0; FrameIndex < NumFrames; FrameIndex++)
 			{
@@ -363,8 +361,8 @@ void FVaraModule::CreateAnimation()
     	Controller.CloseBracket(true);
     	Controller.NotifyPopulated();
     	
-    	FString PackagePath;
-    	PackagePath = UKismetSystemLibrary::GetProjectContentDirectory();
+    	FString PackagePath; // = FString(TEXT("/Content/"));
+    	PackagePath = FPaths::ProjectContentDir();
 
     	// TODO: Need to handle duplicate names better
     	FString AssetName = NewAssetName.ToString();
