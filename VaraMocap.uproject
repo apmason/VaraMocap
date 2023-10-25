@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{BC524300-44FC-131B-F253-D89905AE2C15}",
+	"EngineAssociation": "{7D338772-4FFD-AFBB-E0B8-23BD1F3D8D09}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -21,6 +21,15 @@
 			"Enabled": true,
 			"TargetAllowList": [
 				"Editor"
+			]
+		},
+		{
+			"Name": "OculusXR",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/8313d8d7e7cf4e03a33e79eb757bccba",
+			"SupportedTargetPlatforms": [
+				"Win64",
+				"Android"
 			]
 		}
 	]
