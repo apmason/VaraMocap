@@ -73,3 +73,5 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*.idea/.idea.VaraMocap/.idea
+Platforms/HoloLens/Config/
+.vsconfig
