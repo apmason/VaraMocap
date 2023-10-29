@@ -76,5 +76,6 @@ void UVaraCountdownComponent::BeginCountdown()
 
 void UVaraCountdownComponent::EndCountdown()
 {
-	
+	bCountingDown = false;
+	ElapsedCountdownTime = 0.0f;
 }
