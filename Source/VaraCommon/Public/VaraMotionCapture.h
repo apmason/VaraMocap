@@ -218,9 +218,6 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Motion Capture")
 	int32 Id;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Motion Capture")
-	int32 CreatorId;
 	
 	UPROPERTY(BlueprintReadWrite, Category = "Motion Capture")
 	TArray<FVaraMotionCaptureFrame> Frames;

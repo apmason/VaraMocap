@@ -8,7 +8,7 @@ public class VaraMocap : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "VaraCommon" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "VaraCommon", "LibOVRPlatform", "OculusXRMovement" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
 
