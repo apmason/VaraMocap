@@ -13,6 +13,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "UObject/SavePackage.h"
 #include "IContentBrowserSingleton.h"
+#include "VaraHttpServer.h"
 
 static const FName VaraTabName("Vara");
 
@@ -55,6 +56,12 @@ void FVaraModule::ShutdownModule()
 	FVaraCommands::Unregister();
 
 	FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(VaraTabName);
+
+	if (HttpServer)
+	{
+		HttpServer->Stop();
+		delete HttpServer;
+	}
 }
 
 TSharedRef<SDockTab> FVaraModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
@@ -65,7 +72,11 @@ TSharedRef<SDockTab> FVaraModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTab
 		FText::FromString(TEXT("Vara.cpp"))
 		);
 
-	CreateAnimation();
+	// CreateAnimation();
+	check(!HttpServer)
+	HttpServer = new FVaraHttpServer;
+	check(HttpServer);
+	HttpServer->Start();
 	
 	return SNew(SDockTab)
 		.TabRole(ETabRole::NomadTab)
