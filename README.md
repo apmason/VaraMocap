@@ -21,5 +21,12 @@ The plugin receives recordings from your VR headset and applies those to a known
 
 You can then retarget that animation to any other Skeletal Mesh using `IKRetargeting`.
 
+If you want to pull this plugin in to your project you'll need to add 
+```
+[HTTPServer.Listeners]
+DefaultBindAddress=0.0.0.0
+```
+to your `DefaultEngine.ini` so that the plugin can be communicated to from another device on your network (the VR headset).
+
 Please contribute if you feel so inclined. This is an evolving project.
 
