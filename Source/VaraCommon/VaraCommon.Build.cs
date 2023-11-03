@@ -10,7 +10,11 @@ public class VaraCommon : ModuleRules
 			new string[]
 			{
 				"Core",
-				"CoreUObject"
+				"CoreUObject",
+				"Json", 
+				"JsonUtilities", 
+				"HTTP",
+				"Engine"
 			}
 		);
 	}

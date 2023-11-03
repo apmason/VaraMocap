@@ -18,5 +18,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "MoCap Function Library")
 	static void BodyCaptureToJsonString(const FVaraMotionCapture& InCapture, FString& OutJsonString);
-	
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "MoCap Function Library")
+	static FString GetBaseUrl();
 };

@@ -27,7 +27,6 @@ void FVaraHttpServer::Start()
 		ResultCallback(MoveTemp(Response));
 		return true;
 	};
-	
 	HttpRouter->BindRoute(Route, EHttpServerRequestVerbs::VERB_POST, OnCallback);
 
 	FHttpServerModule::Get().StartAllListeners();
