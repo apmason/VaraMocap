@@ -6,7 +6,6 @@
 #include "HttpPath.h"
 #include "IHttpRouter.h"
 #include "Dom/JsonObject.h"
-#include "VaraMotionCapture.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
 
@@ -74,7 +73,6 @@ void FVaraHttpServer::ParseJsonString(const FString& JsonString)
 			{
 				FVaraMotionCapture Capture = FVaraMotionCapture();
 				// Capture.Id = Id;
-
 				/*FDateTime CreatedAtDate;
 				if (FDateTime::ParseIso8601(*CreatedAtString, CreatedAtDate))
 				{
@@ -161,7 +159,10 @@ void FVaraHttpServer::ParseJsonString(const FString& JsonString)
 
 				Capture.Frames = Frames;
 
-				// Parse/create
+				if (OnServerEvent.IsBound())
+				{
+					OnServerEvent.Execute(Capture);
+				}
 			}	
 		}
 	}

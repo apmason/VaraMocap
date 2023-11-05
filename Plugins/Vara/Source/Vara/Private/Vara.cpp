@@ -76,6 +76,12 @@ TSharedRef<SDockTab> FVaraModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTab
 	check(!HttpServer)
 	HttpServer = new FVaraHttpServer;
 	check(HttpServer);
+
+	HttpServer->OnServerEvent.BindLambda([this](FVaraMotionCapture Capture)
+	{
+		CreateAnimation(Capture);
+	});
+	
 	HttpServer->Start();
 	
 	return SNew(SDockTab)
@@ -92,7 +98,7 @@ TSharedRef<SDockTab> FVaraModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTab
 		];
 }
 
-void FVaraModule::CreateAnimation()
+void FVaraModule::CreateAnimation(const FVaraMotionCapture& Capture)
 {
 	FStringAssetReference SkeletonReference(TEXT("/Vara/Proteus/proteus_head_LOD2_and_body_rig_Skeleton1"));
 	USkeleton* Skeleton = Cast<USkeleton>(SkeletonReference.TryLoad());
@@ -110,10 +116,10 @@ void FVaraModule::CreateAnimation()
 		NewAnimation->SetSkeleton(Skeleton);
 
 		IAnimationDataController& Controller = NewAnimation->GetController();
-		Controller.InitializeModel(); // This is how to get around the break in 5.2!
+		Controller.InitializeModel(); // This is how to get around the break in UE5.2!
     	
-		const float PlayLength = 3.5; // Capture.Frames.Last().Timestamp - Capture.Frames[0].Timestamp;
-    	const int32 NumFrames = 315; // Capture.Frames.Num();
+		const float PlayLength = Capture.Frames.Last().Timestamp - Capture.Frames[0].Timestamp;
+    	const int32 NumFrames = Capture.Frames.Num();
     	
     	Controller.OpenBracket(FText::FromString(FString(TEXT("Anim Populating"))), true);
     	
@@ -148,10 +154,8 @@ void FVaraModule::CreateAnimation()
 				// Get the bone transform for this frame
 				FTransform BoneTransform;
 				
-				/*const FVaraMotionCaptureFrame& FrameData = Capture.Frames[FrameIndex];
-
-				// Get the bone transform for this frame
-				FTransform BoneTransform;
+				const FVaraMotionCaptureFrame& FrameData = Capture.Frames[FrameIndex];
+				
 				if (BoneName == "Root")
 				{
 					// BoneTransform = FrameData.Root;
@@ -350,7 +354,7 @@ void FVaraModule::CreateAnimation()
 				else if (BoneName == "RightHandPinkyDistal")
 				{
 					BoneTransform = FrameData.RightHandPinkyDistal;
-				}*/
+				}
 				
 				if (BoneTransform.GetLocation().X == 0 && BoneTransform.GetLocation().Y == 0 && BoneTransform.GetLocation().Z == 0)
 				{

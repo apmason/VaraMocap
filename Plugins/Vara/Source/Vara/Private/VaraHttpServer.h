@@ -3,6 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "VaraMotionCapture.h"
+
+DECLARE_DELEGATE_OneParam(FVaraServerEvent, FVaraMotionCapture Capture);
 
 /**
  * 
@@ -15,6 +18,8 @@ public:
 
 	void Start();
 	void Stop();
+
+	FVaraServerEvent OnServerEvent;
 
 private:
 
