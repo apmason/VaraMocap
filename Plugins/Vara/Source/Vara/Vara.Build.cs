@@ -44,7 +44,8 @@ public class Vara : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"HTTPServer"
+				"HTTPServer",
+				"Json"
 			}
 			);
 		
