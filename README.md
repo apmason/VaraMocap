@@ -28,5 +28,7 @@ DefaultBindAddress=0.0.0.0
 ```
 to your `DefaultEngine.ini` so that the plugin can be communicated to from another device on your network (the VR headset).
 
+To bring the plugin in to another project you'll need to build this project, then copy `Vara` in `Plugins/Vara` over to your new project.
+
 Please contribute if you feel so inclined. This is an evolving project.
 
