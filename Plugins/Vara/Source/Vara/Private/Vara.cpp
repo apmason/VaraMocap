@@ -40,6 +40,17 @@ void FVaraModule::StartupModule()
 	FGlobalTabmanager::Get()->RegisterNomadTabSpawner(VaraTabName, FOnSpawnTab::CreateRaw(this, &FVaraModule::OnSpawnPluginTab))
 		.SetDisplayName(LOCTEXT("FVaraTabTitle", "Vara"))
 		.SetMenuType(ETabSpawnerMenuType::Hidden);
+
+	check(!HttpServer)
+	HttpServer = new FVaraHttpServer;
+	check(HttpServer);
+
+	HttpServer->OnServerEvent.BindLambda([this](FVaraMotionCapture Capture)
+	{
+		CreateAnimation(Capture);
+	});
+	
+	HttpServer->Start();
 }
 
 void FVaraModule::ShutdownModule()
@@ -67,22 +78,10 @@ void FVaraModule::ShutdownModule()
 TSharedRef<SDockTab> FVaraModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
 {
 	FText WidgetText = FText::Format(
-		LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
+		LOCTEXT("WindowWidgetText", "Place holder text :)"),
 		FText::FromString(TEXT("FVaraModule::OnSpawnPluginTab")),
 		FText::FromString(TEXT("Vara.cpp"))
 		);
-
-	// CreateAnimation();
-	check(!HttpServer)
-	HttpServer = new FVaraHttpServer;
-	check(HttpServer);
-
-	HttpServer->OnServerEvent.BindLambda([this](FVaraMotionCapture Capture)
-	{
-		CreateAnimation(Capture);
-	});
-	
-	HttpServer->Start();
 	
 	return SNew(SDockTab)
 		.TabRole(ETabRole::NomadTab)
