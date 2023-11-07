@@ -13,8 +13,9 @@ This project is a work in progress. Eventually I will have a pre-packaged .apk, 
 ## Plugin
 
 When you open this project, the plugin is already installed. The plugin runs a HTTP server that will receive requests from your headset.
+You'll need to open the plugin (Window -> Vara) for the HTTP server to start.
 
-Right now, the IP address that the headset uses is hardcoded in the app. You'll need to set that yourself for the time being for the system to work properly.
+Right now the IP address that the headset uses is hardcoded in the app. You'll need to set that yourself for the time being for the system to work properly.
 (I haven't added a keyboard/textfield entry for IP address yet. Soon.)
 
 The plugin receives recordings from your VR headset and applies those to a known `Skeletal Mesh` as a new `Animation Sequence`.
