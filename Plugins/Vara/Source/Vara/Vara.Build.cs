@@ -25,8 +25,7 @@ public class Vara : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core",
-				"VaraCommon"
+				"Core"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -45,7 +44,8 @@ public class Vara : ModuleRules
 				"Slate",
 				"SlateCore",
 				"HTTPServer",
-				"Json"
+				"Json",
+				"VaraCommon"
 			}
 			);
 		
