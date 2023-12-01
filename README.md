@@ -2,6 +2,8 @@
 
 VaraMocap is an open-source motion capture solution. This project contains code for a UE5 app deployed to Meta Quest 2/3 as well as an Unreal Engine plugin.
 
+![Alt text](vara_example.gif)
+
 This project is built using [Meta's Unreal Engine fork](https://github.com/Oculus-VR/UnrealEngine). Specifically, [this commit](https://github.com/Oculus-VR/UnrealEngine/commit/078a7a84eb44a77b42787063867eee2667740f3a). Note that you'll need to get access to the EpicGames/UnrealEngine repo to view the fork.
 
 ## Installation
